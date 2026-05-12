@@ -1,0 +1,73 @@
+data:
+  data_root: data/SMD
+  dataset_only: SMD
+  meta_csv: null
+  series: null
+  include: null
+
+  window_size: 64
+  step_size: 2
+  normalize: zscore
+  force_dim: null
+
+training:
+  save_dir: SMD
+  batch_size: 64
+  num_epochs: 10
+  num_workers: 4
+
+  optimizer: adamw
+  learning_rate: 0.0002
+  weight_decay: 0.0
+  beta1: 0.5
+  beta2: 0.999
+
+  latent_dim: 19
+  device: cuda
+  amp: true
+  no_cudnn: false
+  seed: 42
+
+  w_recon: 1.0
+  w_svdd: 1.0
+
+  log_interval: 100
+  log_csv_name: train_loss_history.csv
+  grad_clip_norm: 0.0
+
+  pretrain_epochs: 5
+  svdd_ramp_epochs: 0
+
+  early_stop_patience: 5
+  early_stop_min_delta: 0.0
+  early_stop_warmup: 5
+  early_stop_mode: min
+
+model:
+  d_model: 128
+  nhead: 8
+  num_layers: 3
+  dim_ff: 256
+  dropout: 0.1
+
+  enc1_use_context: true
+  enc1_context_hidden_ratio: 2.0
+  enc1_pooling: attn
+  enc1_pool_attn_hidden: 128
+
+  enc2_d_model: 64
+  enc2_nhead: 4
+  enc2_num_layers: 1
+  enc2_dim_ff: 128
+  enc2_pooling: mean
+
+  compact_hidden_dim: 64
+
+testing:
+  batch_size: 64
+  num_workers: 0
+  auto_search_weights: false
+  weight_search_n_div: 20
+  s_svdd: 300
+  s_rec: 0.0009
+  rec_score_type: mse

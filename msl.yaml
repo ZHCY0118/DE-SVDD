@@ -1,0 +1,50 @@
+data:
+  data_root: data/MSL
+  dataset_only: MSL
+  meta_csv: labeled_anomalies.csv
+  series: null
+  include: null
+  window_size: 64
+  step_size: 2
+  normalize: zscore
+  force_dim: null
+
+training:
+  save_dir: MSL
+  batch_size: 64
+  num_epochs: 20
+  num_workers: 4
+
+  optimizer: adamw
+  learning_rate: 0.0002
+  weight_decay: 0.0
+  beta1: 0.5
+  beta2: 0.999
+
+  latent_dim: 28
+  device: cuda
+  amp: true
+  no_cudnn: false
+  seed: 42
+
+  w_recon: 1.0
+  w_svdd: 1.0
+
+  pretrain_epochs: 5
+  svdd_ramp_epochs: 0
+  grad_clip_norm: 0.0
+
+  log_interval: 100
+
+  early_stop_patience: 5
+  early_stop_min_delta: 0.0
+  early_stop_warmup: 5
+  early_stop_mode: min
+
+testing:
+  batch_size: 64
+  num_workers: 0
+  auto_search_weights: true
+  weight_search_n_div: 20
+  s_svdd: 1.0
+  s_rec: 0
